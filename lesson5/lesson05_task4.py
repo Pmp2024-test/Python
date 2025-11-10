@@ -17,7 +17,8 @@ element_parol.send_keys("SuperSecretPassword!")
 
 check_input = driver.find_element(By.CLASS_NAME, 'radius').click()
 
-# "#flash"
+flash = driver.find_element(By.CSS_SELECTOR, "div#flash")
+print(flash.text)
 
 driver.quit()
 sleep(15)
