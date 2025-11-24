@@ -2,9 +2,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from pages.calculator_page import CalculatorPage
 
 
 @pytest.fixture
@@ -13,30 +11,30 @@ def driver():
         service=ChromeService(ChromeDriverManager().install()))
     driver.get(
         "https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html"
-        )
+    )
     driver.implicitly_wait(4)
     driver.maximize_window()
     yield driver
     driver.quit()
 
 
-def test_calculator_45_seconds_delay(driver):
-    # Установка задержки
-    delay_input = driver.find_element(By.CSS_SELECTOR, "#delay")
-    delay_input.clear()
-    delay_input.send_keys("45")
+@pytest.fixture
+def calculator(driver):
+    return CalculatorPage(driver)
 
-    # Выполнение вычисления 7 + 8
-    driver.find_element(By.XPATH, '//span[text()="7"]').click()
-    driver.find_element(By.XPATH, '//span[text()="+"]').click()
-    driver.find_element(By.XPATH, '//span[text()="8"]').click()
-    driver.find_element(By.XPATH, '//span[text()="="]').click()
 
-    # Ожидание результата
-    WebDriverWait(driver, 50).until(
-        EC.text_to_be_present_in_element((By.CSS_SELECTOR, ".screen"), "15")
-    )
+def test_calculator_45_seconds_delay(driver, calculator):
+    calculator.set_delay(45)
 
-    # Проверка результата
-    result = driver.find_element(By.CSS_SELECTOR, ".screen").text
+    # Выполнение вычисления 7 + 8 
+    calculator.click_7()
+    calculator.click_plus()
+    calculator.click_8()
+    calculator.click_equals()
+
+    # Ожидание результата 
+    calculator.wait_for_result("15", 50)
+
+    # Проверка результата 
+    result = calculator.get_result()
     assert result == "15"

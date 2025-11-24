@@ -2,10 +2,10 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
-from pages.Login_page import LoginPage
-from pages.Main_page import MainPage
-from pages.Cart_page import CartPage
-from pages.Checkout_page import CheckoutPage
+from pages.login_page import LoginPage
+from pages.main_page import MainPage
+from pages.cart_page import CartPage
+from pages.checkout_page import CheckoutPage
 
 
 class TestSauceDemo:
