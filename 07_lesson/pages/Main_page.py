@@ -10,8 +10,7 @@ class MainPage:
 
     def add_product_to_cart(self, product_name):
         # Находим продукт по имени и добавляем в корзину
-        product_xpath = f"//div[text()='{product_name}' \
-            ]/ancestor::div[@class='inventory_item']//button"
+        product_xpath = f"//div[text()='{product_name}'] /ancestor::div[@class='inventory_item']//button"
         add_to_cart_button = self.wait.until(
             EC.element_to_be_clickable((By.XPATH, product_xpath))
         )

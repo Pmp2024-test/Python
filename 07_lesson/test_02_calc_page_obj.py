@@ -26,15 +26,15 @@ def calculator(driver):
 def test_calculator_45_seconds_delay(driver, calculator):
     calculator.set_delay(45)
 
-    # Выполнение вычисления 7 + 8 
+    # Выполнение вычисления 7 + 8
     calculator.click_7()
     calculator.click_plus()
     calculator.click_8()
     calculator.click_equals()
 
-    # Ожидание результата 
+    # Ожидание результата
     calculator.wait_for_result("15", 50)
 
-    # Проверка результата 
+    # Проверка результата
     result = calculator.get_result()
     assert result == "15"

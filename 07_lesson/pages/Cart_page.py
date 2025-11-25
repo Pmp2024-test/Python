@@ -20,8 +20,7 @@ class CartPage:
         return len(items)
 
     def remove_product(self, product_name):
-        remove_xpath = \
-            f"//div[text()='{product_name}']/ancestor::div[@class='cart_item']//button"
+        remove_xpath = f"//div[text()='{product_name}']/ancestor::div[@class='cart_item']//button"
         remove_button = self.driver.find_element(By.XPATH, remove_xpath)
         remove_button.click()
         return self

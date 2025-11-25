@@ -39,11 +39,11 @@ class FormPage:
         submit_button = self.wait.until(
             EC.presence_of_element_located((
                 By.CSS_SELECTOR, '[type="submit"]')))
-        
+
         # Надежный клик через JavaScript
         self.driver.execute_script("arguments[0].scrollIntoView(true);", submit_button)
         self.driver.execute_script("arguments[0].click();", submit_button)
-        
+
         # Ждем применения валидации
         self.wait.until(
             EC.presence_of_element_located((
